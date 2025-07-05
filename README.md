@@ -1,141 +1,184 @@
-# RenalTumor
+#  RenalTumor – Kidney Image Classification
 
+**RenalTumor** is an end-to-end Machine Learning application that classifies kidney CT images into three categories: **Cyst**, **Normal**, and **Tumor**.  
+It incorporates full **MLOps workflow** with **DVC**, serves predictions via a **Flask web app**, and is containerized using **Docker** for easy deployment.
 
-This project is an end-to-end Machine Learning application designed to classify kidney images into three categories: **Cyst**, **Normal**, and **Tumor**. The entire workflow is version-controlled and reproducible using DVC, and the final model is served via a web interface within a Docker container.
+---
 
-## 🖼️ Demonstration
-
-The model is trained to classify images like the ones below. The web application provides an interface to upload an image and receive a prediction.
-
+## 📊 Sample Classifications
 
 | Cyst | Normal | Tumor |
 |:----:|:------:|:-----:|
+| <img src="DemoImages/Cyst.png" alt="Cyst" width="220"> | <img src="DemoImages/Normal.png" alt="Normal" width="220"> | <img src="DemoImages/Tumor.png" alt="Tumor" width="220"> |
 
-| <img src="DemoImages/Cyst.png" alt="Cyst Example" width="220"> | <img src="DemoImages/Normal.png" alt="Normal Example" width="220"> | <img src="DemoImages/Tumor.png" alt="Tumor Example" width="220"> |
-
-
+---
 
 ## ✨ Features
 
-- **End-to-End MLOps Workflow**: From data ingestion to model deployment.
-- **Data & Model Versioning**: Using **DVC** to ensure reproducibility and track datasets and models.
-- **Web Interface**: A user-friendly web app built with **Flask** to interact with the trained model.
-- **Containerized Application**: **Dockerized** for easy deployment and scalability.
-- **Structured & Modular Code**: Follows industry best practices for clean and maintainable code.
+✅ **End-to-End Pipeline** – Covers everything from data ingestion to model deployment  
+✅ **Version Control with DVC** – Ensures reproducibility for both data and models  
+✅ **Web Interface** – Upload images and receive predictions using a sleek UI  
+✅ **Dockerized Deployment** – Portable, scalable, and cloud-ready  
+✅ **Clean Codebase** – Modular architecture that follows industry best practices  
 
-
-
+---
 
 ## ⚙️ Tech Stack
 
-- **Backend**: Python, Flask
-- **ML/DL Framework**: TensorFlow, Keras
-- **MLOps Tools**: DVC (Data Version Control)
-- **Deployment**: Docker
-- **Frontend**: HTML, CSS, JavaScript
+| Layer          | Tools/Frameworks                            |
+|----------------|---------------------------------------------|
+| **Backend**    | Python, Flask                               |
+| **ML/DL**      | TensorFlow, Keras                           |
+| **MLOps**      | DVC (Data Version Control)                  |
+| **Frontend**   | HTML, CSS, JavaScript                       |
+| **Deployment** | Docker                                      |
 
-
+---
 
 ## 📁 Project Structure
 
-The project follows a modular structure to separate concerns:
+```
+RenalTumor/
+├── .dvc/                  # DVC metadata files
 
-├── .dvc/ # DVC files, not to be modified manually
+├── artifacts/             # Pipeline outputs: datasets, models, etc.
 
-├── artifacts/ # Stores all pipeline outputs (data, models, etc.)
+├── config/                # YAML/JSON config files
 
-├── config/ # Configuration files
+├── DemoImages/            # Sample CT images
 
-├── DemoImages/ # Sample images for demonstration
+├── logs/                  # Pipeline and application logs
 
-├── logs/ # Application and pipeline logs
+├── research/              # Jupyter notebooks for experimentation
 
-├── research/ # Jupyter notebooks for experimentation
+├── src/                   # Source code for training and prediction
 
-├── src/ # Main source code for the application
+├── templates/             # HTML templates for the Flask app
 
-├── templates/ # HTML templates for the web application
+├── venv/                  # Virtual environment (local)
 
-├── venv/ # Python virtual environment
+├── .dvcignore             # Files/folders ignored by DVC
 
-├── .dvcignore # Files/directories for DVC to ignore
+├── app.py                 # Flask web app entry point
 
-├── app.py # Main entry point for the Flask web application
+├── Dockerfile             # Docker build configuration
 
-├── Dockerfile # Instructions to build the Docker image
+├── dvc.yaml               # DVC pipeline definitions
 
-├── dvc.yaml # Defines the DVC pipeline stages
+├── main.py                # Training pipeline trigger
 
-├── main.py # Main script to trigger the training pipeline
+├── params.yaml            # All tunable parameters
 
-├── params.yaml # Parameters for models and data processing
+├── requirements.txt       # Project dependencies
 
-├── requirements.txt # Python dependencies
+├── setup.py               # Package setup script
 
-├── setup.py # Project setup script
+```
 
-
+---
 
 ## 🚀 Getting Started
 
-Follow these steps to set up and run the project locally.
+### 🔧 Prerequisites
 
-### Prerequisites
+Ensure the following are installed:
 
-- [Git](https://git-scm.com/)
 - [Python 3.8+](https://www.python.org/)
+- [Git](https://git-scm.com/)
 - [DVC](https://dvc.org/doc/install)
-- [Docker](https://www.docker.com/get-started) (Optional, for containerized deployment)
+- [Docker (Optional)](https://www.docker.com/get-started)
 
-### Installation
+---
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
-    ```
+### 📦 Installation
 
-2.  **Create a virtual environment:**
-    ```bash
-    python -m venv venv
-    ```
-    - On macOS/Linux:
-      ```bash
-      source venv/bin/activate
-      ```
-    - On Windows:
-      ```bash
-      venv\Scripts\activate
-      ```
+1. **Clone the repository**
+```bash
+git clone https://github.com/YOUR_USERNAME/renal-tumor.git
+cd renal-tumor
+```
 
-3.  **Install the required dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+2. **Create and activate a virtual environment**
 
-4.  **Pull the data and model using DVC:**
-    *This command fetches the version-controlled data and pre-trained models from remote storage (e.g., S3, GCS).*
-    ```bash
-    dvc pull
-    ```
+- On **Windows**:
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
 
-## 🔧 How to Run
+- On **macOS/Linux**:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
-### 1. Run the DVC Pipeline
+3. **Install Python dependencies**
+```bash
+pip install -r requirements.txt
+```
 
-To reproduce the training pipeline (data ingestion, preprocessing, training, and evaluation), run:
+4. **Pull versioned data and model from DVC remote**
+```bash
+dvc pull
+```
+
+---
+
+## 🧪 Running the Project
+
+### ⚙️ 1. Reproduce the Full DVC Pipeline
+
+This runs all stages: data preparation → model training → evaluation.
 ```bash
 dvc repro
+```
 
-
-To start the Flask server and interact with the model:
+### 🌐 2. Launch the Flask Web Application
 
 ```bash
 python app.py
+```
 
+Visit your browser at: [http://localhost:8080](http://localhost:8080)
 
-The application will be accessible at http://localhost:8080.
+---
 
+## 🐳 Docker Deployment (Optional)
 
+To build and run the container:
+```bash
+docker build -t renal-tumor-app .
+docker run -p 8080:8080 renal-tumor-app
+```
 
+---
 
+## 🤝 Contributing
+
+We welcome contributions from the community!  
+Follow these steps to contribute:
+
+```bash
+# 1. Fork the repository
+# 2. Clone your fork
+git clone https://github.com/YOUR_USERNAME/renal-tumor.git
+
+# 3. Create a new branch
+git checkout -b feature/my-awesome-feature
+
+# 4. Make your changes & commit
+git commit -m "feat: Add my awesome feature"
+
+# 5. Push to your fork
+git push origin feature/my-awesome-feature
+
+# 6. Open a Pull Request
+```
+
+---
+
+## 🛡️ License
+
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
+---
