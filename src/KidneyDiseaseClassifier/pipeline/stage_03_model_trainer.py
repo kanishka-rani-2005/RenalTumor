@@ -4,6 +4,8 @@ from src.KidneyDiseaseClassifier.components.model_trainer import Training
 
 STAGE_NAME='Model Training Stage'
 
+
+
 class ModelTrainerPipeline:
     def __init__(self):
         pass

@@ -1,8 +1,11 @@
+
 from src.KidneyDiseaseClassifier.config.configuration import ConfigurationManager
 from src.KidneyDiseaseClassifier import logger
 from src.KidneyDiseaseClassifier.components.data_ingestion import DataIngestion
 
 STAGE_NAME='Data Ingestion Stage'
+
+
 
 class DataIngestionPipeline:
     def __init__(self):

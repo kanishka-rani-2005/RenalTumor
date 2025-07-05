@@ -4,6 +4,7 @@ from src.KidneyDiseaseClassifier.components.model_evaluation import Evaluation
 
 STAGE_NAME='Model Evaluation Stage'
 
+
 class ModelEvaluationPipeline:
     def __init__(self):
         pass
@@ -13,7 +14,7 @@ class ModelEvaluationPipeline:
             eval_config=config.get_evaluation_config()
             evaluation=Evaluation(eval_config)
             evaluation.evaluation()
-            evaluation.log_into_mlflow()
+            # evaluation.log_into_mlflow()
 
         except Exception as e:
             raise e
